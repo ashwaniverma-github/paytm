@@ -35,6 +35,14 @@ router.post("/signup", async function(req,res){
     }
 
     const dbUser = await User.createOne({body})
+    const userId = dbUser._id
+
+    // Giving some money to the user 
+    await Account.create({
+        userId,
+        balance: 1+ Math.random()*10000
+    })
+
     const token = jwt.sign({
         userId: dbUser._id
     },JWT_SECRET)
@@ -42,6 +50,8 @@ router.post("/signup", async function(req,res){
         msg:"User created successfully",
         token:token
     })
+
+
 
 
 
