@@ -4,7 +4,7 @@ import { Schema } from "zod";
 
 mongoose.connect("mongodb+srv://av1710334:KXFvqxbwCs0QaqoQ@cluster0.rxdzdmx.mongodb.net/paytm/")
 
-const  userSchema = mongoose.Schema({
+const  userSchema = new mongoose.Schema({
     username:String,
     password:String,
     firstName:String,
