@@ -1,10 +1,14 @@
 const express = require('express')
+const app = express();
+app.use(express.json());
 const cors = require("cors")
 const zod = require('zod')
+const jwt = require("jsonwebtoken")
+const {User,Account} = require("../db")
 const JWT_SECRET = require('../config')
 const { authMiddleware } = require('../middleware')
-app.use(express.json())
-const router = express.router()
+
+const router = express.Router()
 
 
 const signupSchema  = zod.object({
@@ -17,24 +21,30 @@ const signupSchema  = zod.object({
 
 
 router.post("/signup", async function(req,res){
-    const body = req.body;
+    const body = req.body
+    const {success} = signupSchema.safeParse(body)
 
-    const {success} = signupSchema.parse(req.body)
     if(!success){
-        return res.json({
+        return res.status(400).json({
             msg:"Invalid inputs"
         })
     }
-    const user = User.findOne({
+    
+    const user = await User.findOne({
         username:body.username
     })
-    if(user._id){
+    if(user){
         return res.json({
             msg:"Email already exist/Invalid input"
         })
     }
 
-    const dbUser = await User.createOne({body})
+    const dbUser = await User.create({
+        username: req.body.username,
+        password: req.body.password,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
+    })
     const userId = dbUser._id
 
     // Giving some money to the user 
@@ -51,22 +61,26 @@ router.post("/signup", async function(req,res){
         token:token
     })
 
+})
 
-
-
-
+const signinSchema = zod.object({
+    username:zod.string(),
+    password:zod.string()
 })
 
 router.post('/signin', async function(req,res){
-    const body = req.body.username;
-    const {success} = signupSchema.parse(body);
+    const body = req.body;
+    console.log(req.body)
+    const {success} = signinSchema.safeParse(body);
+
     if(!success){
         return res.status(411).json({
-            msg:"invalid inputs"
+            msg:"invalid inputs",
         })
     }
     const user = await User.findOne({
-        username:req.body.username
+        username:body.username,
+        password:body.password
     })
     if(user){
         const token = jwt.sign({
@@ -106,6 +120,7 @@ router.put('/',authMiddleware,async function(req,res,next){
 
 //  Route to get users from the backend, filterable via firstName/lastName
 router.get('/bulk',async function(req,res,next){
+    res.json("hello")
     const filter  = req.query.filter || "";
     const users = await User.find({
         $or:[{

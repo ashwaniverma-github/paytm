@@ -1,8 +1,8 @@
 const mongoose = require("mongoose")
-import mongoose from "mongoose";
-import { Schema } from "zod";
+// import mongoose from "mongoose";
+// import { Schema } from "zod";
 
-mongoose.connect("mongodb+srv://av1710334:KXFvqxbwCs0QaqoQ@cluster0.rxdzdmx.mongodb.net/paytm/")
+mongoose.connect("mongodb+srv://av1710334:KXFvqxbwCs0QaqoQ@cluster0.rxdzdmx.mongodb.net/paytm")
 
 const  userSchema = new mongoose.Schema({
     username:String,
@@ -27,9 +27,9 @@ const accountSchema = new mongoose.Schema({
 const  User = mongoose.model("user-data",userSchema);
 const Account = mongoose.model("account",accountSchema);
 
-module.exports({
+module.exports = {
     User,
     Account
-})
+}
 
 
