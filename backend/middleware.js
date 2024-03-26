@@ -1,5 +1,7 @@
 const {JWT_SECRET} = require('./config')
 const express = require("express");
+const app = express();
+app.use(express.json());
 const jwt = require("jsonwebtoken");
 
 const authMiddleware = (req,res,next)=>{
@@ -22,7 +24,10 @@ const authMiddleware = (req,res,next)=>{
         
     }
     catch(err){
-        return res.status.json({})
+        return res.status(411).json({
+            msg:"Verification failed",
+            error:err.message
+        })
     }
 }
 

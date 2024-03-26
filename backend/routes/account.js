@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
-const router = express.Router();
+app.use(express.json())
 const {authMiddleware} = require('../middleware')
 const {Account} = require('../db')
 const {default:mongoose} = require('mongoose')
-
+const router = express.Router();
 
 
 router.get('/balance',authMiddleware,async function(req,res){
