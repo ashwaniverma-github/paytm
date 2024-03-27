@@ -12,7 +12,7 @@ export function Signup(){
                 <SubHeading label="Enter your information to create an acoount" />
                 <InputBox label="First Name" placeholder="John" />
                 <InputBox label="last Name" placeholder="doe" />
-                <InputBox label="Username" placeholder="john@gmail.com" />
+                <InputBox label="Email" placeholder="john@gmail.com" />
                 <InputBox label="Password" placeholder="Enter password" />
                 <div className="pt-4" >
                     <Button label="Sign up" />
