@@ -8,6 +8,9 @@ const {User,Account} = require("../db")
 const {JWT_SECRET} = require('../config')
 const { authMiddleware } = require('../middleware')
 
+
+
+
 const router = express.Router()
 
 
@@ -119,30 +122,31 @@ router.put('/',authMiddleware,async function(req,res,next){
 })
 
 
-//  Route to get users from the backend, filterable via firstName/lastName
-router.get('/bulk',async function(req,res,next){
-    res.json("hello")
-    const filter  = req.query.filter || "";
+router.get("/bulk", async (req, res) => {
+    const filter = req.query.filter || "";
+
     const users = await User.find({
-        $or:[{
-            firstName:{
+        $or: [{
+            firstName: {
                 "$regex": filter
             }
-        },{
-            lastName:{
-                $regex:filter
+        }, {
+            lastName: {
+                "$regex": filter
             }
         }]
     })
+
     res.json({
-        user:users.map(user=>({
-            username:user.username,
-            firstName:user.firstName,
-            lastName:user.lastName,
-            _id:user._id
+        user: users.map(user => ({
+            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            _id: user._id
         }))
     })
 })
+
 
 
 
