@@ -4,7 +4,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors:{
+        paytmBlue:"#00baf2"
+      },
+    },
   },
   plugins: [],
 }

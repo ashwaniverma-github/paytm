@@ -45,7 +45,7 @@ export function Signup(){
                             password
                         });
                         localStorage.setItem("token",response.data.token)
-                        navigate("/send")
+                        navigate("/dashboard")
                     }} label={"Sign up"} />
                 </div>
 

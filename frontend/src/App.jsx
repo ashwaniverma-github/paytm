@@ -5,13 +5,16 @@ import { Signin } from "./pages/Signin";
 import { Dashboard } from "./pages/Dashboard";
 import { SendMoney } from "./pages/SendMoney";
 import './App.css'
+import { MainPage } from './pages/MainPage';
 
 function App(){
 
   return(
     <>
+    
     <BrowserRouter>
     <Routes>
+    <Route path="/" element={<MainPage/>}/>
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/signin" element={<Signin/>}/>
       <Route path="/Send" element={<SendMoney/>}/>
