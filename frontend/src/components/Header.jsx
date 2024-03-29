@@ -10,7 +10,7 @@ export function Header(){
         <nav>
             <ul className="flex space-x-4 font-semibold">
                 <li onClick={()=>{
-                    navigate('/signup')
+                    navigate('./signup')
                 }} className="bg-paytmBlue rounded-lg p-1 hover:bg-sky-400 text-white" > <a href="">Signup</a> </li>
             </ul>
         </nav>
