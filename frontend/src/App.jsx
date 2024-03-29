@@ -14,7 +14,7 @@ function App(){
     
     <BrowserRouter>
     <Routes>
-    <Route path="/" element={<MainPage/>}/>
+      <Route path="/" element={<MainPage/>}/>
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/signin" element={<Signin/>}/>
       <Route path="/Send" element={<SendMoney/>}/>
